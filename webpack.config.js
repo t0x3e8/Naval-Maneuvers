@@ -59,6 +59,13 @@ const config = {
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
         type: 'asset'
+      },
+      {
+        test: /\.(ico)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/graphics/[name][ext]' // Output the file with its original name and extension
+        }
       }
 
       // Add your rules for custom modules here
