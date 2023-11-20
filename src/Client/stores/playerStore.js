@@ -3,21 +3,10 @@ import { defineStore } from 'pinia'
 export const usePlayerStore = defineStore('playerStore', {
   // The `state` method returns the state object
   state: () => ({
-    player: {},
-    games: [],
-    activeGame: {},
-    recentOpenedGameId: null
+    player: {}
   }),
 
   actions: {
-    resetState () {
-      // Here we reset the state to its initial values
-      this.player = {}
-      this.games = []
-      this.activeGame = {}
-      this.recentOpenedGameId = null
-    }
-
     // Define other actions here
   },
 

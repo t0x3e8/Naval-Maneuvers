@@ -65,8 +65,8 @@ export default {
     src: url(../Assets/Fonts/titillium-web-v7-latin-regular.woff2)
       format("woff2");
   }
-  */
   html {
     font-size: 62.5%;
   }
+  */
 </style>

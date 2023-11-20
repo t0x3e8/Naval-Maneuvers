@@ -1,8 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import About from './Client/views/About.vue'
-// import Game from './Views/Game.vue'
-// import SignUp from './Views/SignUp.vue'
-// import GameSetup from './Views/GameSetup.vue'
+// import SignUp from './Client/views/SignUp.vue'
+import GameSetup from './Client/views/GameSetup.vue'
 // import { useStore } from './Store/index.js' // Assuming you're using Pinia or Vuex 4
 
 const router = createRouter({
@@ -11,7 +10,7 @@ const router = createRouter({
     {
       path: '/about',
       component: About
-    }
+    },
     // {
     //   path: '/game',
     //   component: Game,
@@ -24,12 +23,12 @@ const router = createRouter({
     //   name: 'signup',
     //   meta: { hideNavigation: true }
     // },
-    // {
-    //   path: '/',
-    //   component: GameSetup,
-    //   name: 'setup',
-    //   meta: { requiresAuth: true }
-    // }
+    {
+      path: '/',
+      component: GameSetup,
+      name: 'setup'
+      // TODO: meta: { requiresAuth: true }
+    }
   ]
 })
 
