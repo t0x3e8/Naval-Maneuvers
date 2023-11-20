@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
     <b-card no-body class="bg-light">
       <b-form novalidate @submit.prevent="onJoin">
         <b-form-group
@@ -34,7 +34,7 @@
 
 <script>
 import { ref, computed } from 'vue'
-import { useEventBus } from 'some-event-bus-library' // Replace with your choice of event bus library
+// import { useEventBus } from 'some-event-bus-library' // Replace with your choice of event bus library
 
 export default {
   name: 'NewPlayerComponent',
@@ -64,13 +64,13 @@ export default {
       return ''
     })
 
-    const eventBus = useEventBus() // Replace with your event bus initialization
+    // const eventBus = useEventBus() // Replace with your event bus initialization
 
     const onJoin = () => {
-      if (isPlayerNameValid.value) {
-        console.debug('event-emit: join-player')
-        eventBus.emit('join-player', { playerName: playerName.value })
-      }
+      // if (isPlayerNameValid.value) {
+      //   console.debug('event-emit: join-player')
+      //   eventBus.emit('join-player', { playerName: playerName.value })
+      // }
     }
 
     return {
@@ -81,4 +81,4 @@ export default {
     }
   }
 }
-</script> -->
+</script>

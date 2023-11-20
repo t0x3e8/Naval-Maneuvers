@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100">
+    <defs>
+        <clipPath id="clip-path">
+            <circle cx="50.15" cy="50" r="46.57" style="fill:none"/>
+        </clipPath>
+    </defs>
+    <title>
+        icons
+    </title>
+    <g id="pawn-none" data-name="pawn-none">
+        <circle cx="49.93" cy="50.07" r="46.57" style="stroke-miterlimit:10;stroke:#392f80;stroke-width:5px;fill:#4444AA"/>
+        <circle cx="50.12" cy="50.29" r="44.28" style="stroke:#e57f9a;stroke-miterlimit:10;fill:none"/>
+    </g>
+</svg>

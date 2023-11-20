@@ -2,7 +2,7 @@
     <b-container fluid class="mt-0">
       <b-row class="g-0">
         <b-col cols="4">
-          <!-- <GameSettings /> -->
+          <GameSettings />
         </b-col>
         <b-col cols="8" class="portSetup">
           <b-row>
@@ -16,7 +16,7 @@
           </b-row>
           <b-row>
             <b-col>
-              <!-- <Port :board="board" /> -->
+              <Port :board="board" />
             </b-col>
           </b-row>
         </b-col>
@@ -28,15 +28,15 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useRoute } from 'vue-router'
 import { useGameStore } from '../stores/gameStore.js'
-// import GameSettings from './../Components/GameSettingsComponent.vue'
-// import Port from './../Components/PortComponent.vue'
+import GameSettings from './components/GameSettingsComponent.vue'
+import Port from './components/PortComponent.vue'
 import PortBoard from './../GameEngine/portBoard.js'
 
 export default {
   name: 'GameSetupView',
   components: {
-    // GameSettings,
-    // Port
+    GameSettings,
+    Port
   },
   setup () {
     const gameStore = useGameStore()

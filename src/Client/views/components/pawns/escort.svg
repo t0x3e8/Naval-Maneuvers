@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100">
+    <defs>
+        <clipPath id="clip-path">
+            <circle cx="50.15" cy="50" r="46.57" style="fill:none"/>
+        </clipPath>
+    </defs>
+    <title>
+        icons
+    </title>
+    <g id="eskortowiec">
+        <circle cx="49.93" cy="50.07" r="46.57" style="stroke-miterlimit:10;stroke:#392f80;stroke-width:5px;fill:none"/>
+        <circle cx="50.12" cy="50.29" r="44.28" style="stroke:#e57f9a;stroke-miterlimit:10;fill:none"/>
+        <g style="clip-path:url(#clip-path)">
+            <path d="M89.89,62.56c1-2.31-3.61-2.46-5.94-5.22-1.32-1.56-2.56-4.25-2-9.23L21.16,35.73l-.22,3.83L37.37,65.22a13.64,13.64,0,0,0-7.21,2.25,14.28,14.28,0,0,0-5.85,8.77A11.84,11.84,0,0,0,25,82.32a17,17,0,0,1,5-6.3c1.14-.9,5.74-3.76,9.78-2.46.66.21,2.77,1.31,2.6,2.23-.24,1.2-2,.9-5.06,2.88a6.37,6.37,0,0,0-2.93,3.92A11.16,11.16,0,0,0,34,86.82a21.68,21.68,0,0,1,5.4-2.48c.74-.23,4.53-1.41,6.53.23,4.08,3.36,1,5.5,2.27,7.17C48.19,91.74,77.52,91.74,89.89,62.56Z"/>
+        </g>
+    </g>
+</svg>
