@@ -62,4 +62,3 @@ export default ({
       fill: white;
     }
 </style>
-
