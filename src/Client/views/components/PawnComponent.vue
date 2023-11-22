@@ -1,33 +1,27 @@
 <template>
-    <component :is="icon" class="pawnIcon" :class="[pawnData.selected ? 'selected' : '']" @click="pawnClicked" />
-  </template>
+    <inline-svg :src="icon" class="pawnIcon" :class="[pawnData.selected ? 'selected' : '']" @click="pawnClicked"></inline-svg>
+</template>
 
 <script>
-import { defineComponent, ref, watch, toRefs } from 'vue'
-import _ from 'underscore'
-// import { BOARD_CELL_CLICKED } from './../eventsTypes.js'
+import { ref, watch, inject, computed } from 'vue'
+import InlineSvg from 'vue-inline-svg'
 
-export default defineComponent({
+export default ({
   name: 'PawnComponent',
+  components: { InlineSvg },
   props: {
     pawnData: {
       type: Object,
       default: () => ({})
     }
   },
-  setup (props, { emit }) {
-    const { pawnData } = toRefs(props)
+  setup (props) {
+    const settings = inject('settings')
+    const pawnsPath = computed(() => settings.PawnsResourcePathInPublicFolder)
     const icon = ref(null)
 
-    watch(pawnData, (newValue) => {
-      if (_.isNull(newValue.svgName) || _.isUndefined(newValue.svgName)) {
-        icon.value = null
-      } else {
-        icon.value = () => import(
-            /* webpackMode: "eager" */
-            `./pawns/${newValue.svgName}`
-        )
-      }
+    watch(() => props.pawnData, (newPawnDataValue) => {
+      icon.value = newPawnDataValue.svgName ? `${pawnsPath.value}${newPawnDataValue.svgName}` : null
     }, { immediate: true })
 
     const pawnClicked = () => {
@@ -43,13 +37,29 @@ export default defineComponent({
 })
 </script>
 
-  <style module>
+<style module>
     .pawnIcon {
       position: absolute;
       display: block;
+      /* Use viewport units that depend on the size of the screen */
+      width: 10vw;
+      height: 10vw; /* Adjust the height to maintain the aspect ratio */
+      max-width: 100px; /* Maximum size to prevent it from getting too large */
+      max-height: 100px; /* Maximum height to match the max-width */
+    }
+
+    /* Use media queries for responsiveness */
+    @media (max-width: 768px) {
+        .pawnIcon {
+            width: 15vw;
+            height: 15vw;
+            max-width: 75px;
+            max-height: 75px;
+        }
     }
 
     .selected circle {
       fill: white;
     }
-  </style>
+</style>
+

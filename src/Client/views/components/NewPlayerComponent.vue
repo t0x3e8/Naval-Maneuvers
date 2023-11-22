@@ -34,7 +34,6 @@
 
 <script>
 import { ref, computed } from 'vue'
-// import { useEventBus } from 'some-event-bus-library' // Replace with your choice of event bus library
 
 export default {
   name: 'NewPlayerComponent',

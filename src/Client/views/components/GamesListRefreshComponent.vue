@@ -1,8 +1,8 @@
 <template>
     <button class="btn btn-link w-100" @click="refresh">
-      <b-tooltip target="refreshButton" placement="top">
+      <!-- <b-tooltip target="refreshButton" placement="top">
         Click to refresh list
-      </b-tooltip>
+      </b-tooltip> -->
       <div id="refreshButton">
         <progress class="progress progress-success" :value="value" :max="maxValue" style="width: 100%; height: 4px;"></progress>
       </div>

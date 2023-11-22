@@ -69,10 +69,6 @@ export default {
       router.push({ name: 'game' })
     }
 
-    const refreshPortLayout = () => {
-      board.value = new PortBoard()
-    }
-
     onMounted(() => {
       // Add your event listeners here, consider using a different method than $root.$on
     })
@@ -85,8 +81,7 @@ export default {
       board,
       createGame,
       // joinGame,
-      openGame,
-      refreshPortLayout
+      openGame
     }
   }
 }

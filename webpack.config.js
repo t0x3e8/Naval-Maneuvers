@@ -4,6 +4,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
+const CopyPlugin = require('copy-webpack-plugin')
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -24,7 +25,19 @@ const config = {
     new HtmlWebpackPlugin({
       template: 'index.html'
     }),
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'src/Client/assets/graphics/pawns'),
+          to: path.resolve(__dirname, 'dist/assets/pawns')
+        },
+        {
+          from: path.resolve(__dirname, 'src/Client/assets/graphics/favicon.ico'),
+          to: path.resolve(__dirname, 'dist/assets/favicon.ico')
+        }
+      ]
+    })
     // Add your plugins here
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
   ],
@@ -64,10 +77,9 @@ const config = {
         test: /\.(ico)$/i,
         type: 'asset/resource',
         generator: {
-          filename: 'assets/graphics/[name][ext]' // Output the file with its original name and extension
+          filename: 'assets/[name][ext]' // Output the file with its original name and extension
         }
       }
-
       // Add your rules for custom modules here
       // Learn more about loaders from https://webpack.js.org/loaders/
     ]
