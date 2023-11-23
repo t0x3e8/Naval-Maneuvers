@@ -3,6 +3,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const CopyPlugin = require('copy-webpack-plugin')
 
@@ -15,17 +16,32 @@ const stylesHandler = isProduction
 const config = {
   entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[contenthash].js',
+    chunkFilename: '[name].[contenthash].js',
+    clean: true
   },
   devServer: {
     open: true,
     host: 'localhost'
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    },
+    minimizer: [
+      '...',
+      new CssMinimizerPlugin()
+    ]
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: 'src/index.html'
     }),
     new VueLoaderPlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash].css'
+    }),
     new CopyPlugin({
       patterns: [
         {

@@ -37,7 +37,7 @@ export default ({
 })
 </script>
 
-<style module>
+<style scoped>
     .pawnIcon {
       position: absolute;
       display: block;
