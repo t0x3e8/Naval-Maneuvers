@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100">
+    <defs>
+        <clipPath id="clip-path">
+            <circle cx="50.15" cy="50" r="46.57" style="fill:none"/>
+        </clipPath>
+    </defs>
+    <title>
+        icons
+    </title>
+    <g id="okret_desantowy" data-name="okret desantowy">
+        <circle cx="49.93" cy="50.07" r="46.57" style="stroke-miterlimit:10;stroke:#392f80;stroke-width:5px;fill:none"/>
+        <circle cx="50.12" cy="50.29" r="44.28" style="stroke:#e57f9a;stroke-miterlimit:10;fill:none"/>
+        <g style="clip-path:url(#clip-path)">
+            <path d="M35.09,26.55l3.75,56.33H62.08Q63,55.29,64,27.72A59.29,59.29,0,0,1,84.14,50.14Q81,67.21,77.92,84.29A34.82,34.82,0,0,1,67.83,92.5C55.53,99.1,43,95.91,39.31,95a45.31,45.31,0,0,1-16.78-8.34L15.72,51.78A73.07,73.07,0,0,1,35.09,26.55Z"/>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100">
+    <defs>
+        <clipPath id="clip-path">
+            <circle cx="50.15" cy="50" r="46.57" style="fill:none"/>
+        </clipPath>
+    </defs>
+    <title>
+        icons
+    </title>
+    <g id="tralowiec">
+        <circle cx="49.93" cy="50.07" r="46.57" style="stroke-miterlimit:10;stroke:#392f80;stroke-width:5px;fill:none"/>
+        <circle cx="50.12" cy="50.29" r="44.28" style="stroke:#e57f9a;stroke-miterlimit:10;fill:none"/>
+        <g style="clip-path:url(#clip-path)">
+            <path d="M79.76,73.15l0-3.39c1.62-2.76,2.25-4.24,3.87-7,0,0-21.85-28.58-32.94-41.86L18.11,63l2.75,6.78c-.07,1.62-.07,1.79-.14,3.41,0,0-6.52-.07-8.08,0-.81.89,1.64,3.84,1.44,5.49-.74,6.17,9,11.74,11.86,13.34a46.9,46.9,0,0,0,38.77,3.18A44.61,44.61,0,0,0,81.66,84a42.22,42.22,0,0,0,7.21-10.8ZM67.71,55.45,54.62,38.59l-6.75-.25s-13.29,17.09-13.16,17c-1.13-1-2.14-1.76-3.27-2.75,6.71-8.41,13.05-17.08,19.76-25.49L71,52.55C71,52.61,67.71,55.45,67.71,55.45Z"/>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100">
+    <defs>
+        <clipPath id="clip-path">
+            <circle cx="49.57" cy="50.43" r="46.57" style="fill:none"/>
+        </clipPath>
+    </defs>
+    <title>
+        icons
+    </title>
+    <g id="pancernik">
+        <circle cx="49.93" cy="50.07" r="46.57" style="stroke-miterlimit:10;stroke:#392f80;stroke-width:5px;fill:none"/>
+        <circle cx="50.12" cy="50.29" r="44.28" style="stroke:#e57f9a;stroke-miterlimit:10;fill:none"/>
+        <g style="clip-path:url(#clip-path)">
+            <polygon points="80.07 24.86 77.86 28.31 41.58 13.91 40.06 17.07 74.21 34.02 72.57 36.57 40.7 23.92 39.19 27.08 69.13 41.94 67.34 44.73 39.86 33.82 38.34 37.08 64.08 49.83 61.41 53.99 68.2 53.99 68.2 63.4 59.48 63.73 56.4 66.66 21.66 52.87 20.2 55.97 52.86 72.18 51.41 74.45 20.21 62.06 18.93 64.72 48.3 79.3 46.33 82.44 21.37 72.53 19.95 75.49 43.37 87.08 38.35 94.82 69.77 104.19 97.22 75.95 103.5 40.66 91.73 25.69 80.07 24.86"/>
+        </g>
+    </g>
+</svg>
