@@ -3,8 +3,9 @@
 </template>
 
 <script>
-import { ref, watch, inject, computed } from 'vue'
+import { ref, watch, computed } from 'vue'
 import InlineSvg from 'vue-inline-svg'
+import { useSettingsStore } from './../../stores/settingsStore'
 
 export default ({
   name: 'PawnComponent',
@@ -16,8 +17,8 @@ export default ({
     }
   },
   setup (props) {
-    const settings = inject('settings')
-    const pawnsPath = computed(() => settings.PawnsResourcePathInPublicFolder)
+    const settingsStore = useSettingsStore()
+    const pawnsPath = computed(() => settingsStore.PawnsResourcePathInPublicFolder)
     const icon = ref(null)
 
     watch(() => props.pawnData, (newPawnDataValue) => {
