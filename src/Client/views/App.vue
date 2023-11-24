@@ -1,30 +1,5 @@
 <template>
-  <div>
-    <nav v-if="!hideNavigation" class="navbar navbar-expand-lg navbar-light py-0 my-0">
-      <div class="container-fluid">
-        <!-- Content for the navbar can go here -->
-
-        <!-- This is a navbar toggler button for mobile responsive view -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- Navbar links -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <router-link class="nav-link" to="#" @click="signout">Sign {{ player.name }} out</router-link>
-              <router-link class="nav-link" to="/about">About</router-link>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <div class="container-fluid">
-      <router-view />
-    </div>
-  </div>
+  <router-view />
 </template>
 
 <script>

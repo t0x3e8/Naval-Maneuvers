@@ -1,20 +1,39 @@
 import { createApp } from 'vue'
-import App from './Client/views/App.vue'
-// TODO: uncomment:import './Assets/scss/custom.scss'
-// TODO: uncomment:import store from './Store/index'
+// import App from './Client/views/App.vue'
 import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/js/bootstrap.js'
 import { createPinia } from 'pinia'
 import router from './router.js'
 
-const app = createApp(App)
 const pinia = createPinia()
 
-app.use(pinia)
-app.use(router)
+let currentApp = null
 
-app.provide('settings', {
-  PawnsResourcePathInPublicFolder: '/assets/pawns/'
-})
+export function loadPortSetup () {
+  if (currentApp) {
+    currentApp.unmount()
+  }
+  import('./Client/views/PortSetup.vue').then(module => {
+    const PortSetup = module.default
+    currentApp = createApp(PortSetup)
+    currentApp.use(pinia)
+    currentApp.use(router)
+    currentApp.mount('#app')
+  })
+}
 
-// Mount the application to the DOM
-app.mount('#app')
+export function loadGame () {
+  if (currentApp) {
+    currentApp.unmount()
+  }
+  import('./Client/views/Game.vue').then(module => {
+    const Game = module.default
+    currentApp = createApp(Game)
+    currentApp.use(pinia)
+    currentApp.use(router)
+    currentApp.mount('#app')
+  })
+}
+
+window.loadPortSetup = loadPortSetup
+window.loadGame = loadGame
