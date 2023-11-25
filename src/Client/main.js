@@ -19,7 +19,7 @@ export function loadPortSetup () {
   if (currentApp) {
     currentApp.unmount()
   }
-  import('./Client/views/PortSetup.vue').then(module => {
+  import('./views/PortSetup.vue').then(module => {
     createAppOnModule(module.default)
   })
 }
@@ -28,7 +28,7 @@ export function loadGame () {
   if (currentApp) {
     currentApp.unmount()
   }
-  import('./Client/views/Game.vue').then(module => {
+  import('./views/Game.vue').then(module => {
     createAppOnModule(module.default)
   })
 }

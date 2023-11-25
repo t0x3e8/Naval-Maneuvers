@@ -15,7 +15,7 @@ const stylesHandler = isProduction
   : 'style-loader'
 
 const config = {
-  entry: './src/main.js',
+  entry: './src/Client/main.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[contenthash].js',
@@ -45,7 +45,7 @@ const config = {
       __VUE_PROD_DEVTOOLS__: JSON.stringify(false)
     }),
     new HtmlWebpackPlugin({
-      template: 'src/index.html'
+      template: 'src/client/index.html'
     }),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
@@ -54,11 +54,11 @@ const config = {
     new CopyPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, 'src/Client/assets/graphics/pawns'),
+          from: path.resolve(__dirname, 'src/client/assets/graphics/pawns'),
           to: path.resolve(__dirname, 'dist/assets/pawns')
         },
         {
-          from: path.resolve(__dirname, 'src/Client/assets/graphics/favicon.ico'),
+          from: path.resolve(__dirname, 'src/client/assets/graphics/favicon.ico'),
           to: path.resolve(__dirname, 'dist/assets/favicon.ico')
         }
       ]

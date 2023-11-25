@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import About from './Client/views/About.vue'
+import About from './views/About.vue'
 // import SignUp from './Client/views/SignUp.vue'
-import GameSetup from './Client/views/GameSetup.vue'
+import GameSetup from './views/GameSetup.vue'
 // import { useStore } from './Store/index.js' // Assuming you're using Pinia or Vuex 4
 
 const router = createRouter({
