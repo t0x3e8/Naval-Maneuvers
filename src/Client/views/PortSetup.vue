@@ -1,12 +1,10 @@
 <template>
   <div class="container">
     <div class="grid">
-      <section>
-        <hgroup>
-          <h2>Design Your Fleet in Port</h2>
-          <p class="instructions">This will be your default Port setting in the next games.</p>
-        </hgroup>
-      </section>
+      <hgroup>
+        <h2>Design Your Fleet in Port</h2>
+        <p class="instructions">This will be your default Port setting in the next games.</p>
+      </hgroup>
     </div>
     <div class="grid">
       <div>
@@ -22,12 +20,10 @@
       </div>
     </div>
     <div class="grid">
-      <div>
-        <div id="port">
-          <div v-for="(columns, rowIndex) in board.cells" :key="`1${rowIndex}`" class="grid">
-            <div v-for="(cell, colIndex) in columns" :key="`2${colIndex}`">
-              <cell :cell-data="cell" class="cell" />
-            </div>
+      <div id="port">
+        <div v-for="(columns, rowIndex) in board.cells" :key="`1${rowIndex}`" class="grid">
+          <div v-for="(cell, colIndex) in columns" :key="`2${colIndex}`">
+            <cell :cell-data="cell" class="cell" />
           </div>
         </div>
       </div>
