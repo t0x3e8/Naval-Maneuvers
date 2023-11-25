@@ -5,49 +5,61 @@ import Pawn from './pawn.js'
 import Board from './board.js'
 
 /**
- * The Board object represents the structure of the board, including characteristics  of board eg.
- * cells of ports and the neutral cells. In addition, it shows the setup of pawns on the board of players.
- * @returns {void}
+ * Represents the structure of the port board, including characteristics of cells and pawn setup.
  */
 class PortBoard extends Board {
   /**
-   * Constructs the PortBoard object
+   * Constructs the PortBoard object.
    */
   constructor () {
     super()
     this.displayPortCells()
-    this.initializePawns()
   }
 
   /**
-   * Initialized the intance of Board with the random placement of pawns.
-   * @param {GUID} playerID client Player ID received by server
-   * @returns {void}
+   * Initializes the board with the placement of pawns.
+   * @param {Pawn[]} pawns - Array of Pawn objects.
    */
-  initializePawns () {
-    const allPawns = _.filter(
+  initializePawns (pawns) {
+    // Directly use provided pawns or filter non-battery pawns from default set
+    const allPawns = pawns || _.filter(
       BoardHelper.getAllPawns(),
       (pawn) => pawn.type !== PawnType.MINE && pawn.type !== PawnType.BATTERY
     )
+
+    // Shuffle and filter port and entrance cells
     const portCells = _.shuffle(
       _.flatten(this.cells).filter(
         (cell) => cell.type === CellType.PLAYER_TWO_PORT || cell.type === CellType.PLAYER_TWO_ENTRANCE
       )
     )
-    const batteryCells = _.flatten(this.cells).filter((cell) => cell.type === CellType.PLAYER_TWO_BATTERY)
 
-    batteryCells.forEach((cell) => {
-      this.assignPawn(cell, new Pawn(PawnType.BATTERY))
-    })
+    // Assign battery pawns to battery cells if pawns are not provided
+    if (!pawns) {
+      const batteryCells = _.flatten(this.cells).filter(
+        (cell) => cell.type === CellType.PLAYER_TWO_BATTERY
+      )
 
+      // Place battery pawns in battery cells
+      batteryCells.forEach((cell) => {
+        this.assignPawn(cell, new Pawn(PawnType.BATTERY))
+      })
+    }
+
+    // Assign pawns to port and entrance cells
     allPawns.forEach((pawn) => {
-      this.assignPawn(portCells.pop(), pawn)
+      const cell = portCells.pop()
+      if (cell) {
+        this.assignPawn(cell, pawn)
+      } else {
+        // Handle the case where there are more pawns than cells
+        console.error('Not enough cells to place all pawns')
+      }
     })
   }
 
   /**
-   * Changes the full board view into only port view
-   * @returns {void}
+   * Displays only the port cells of the board.
    */
   displayPortCells () {
     // ToDo: Hardcoded, as the cells are limitted to the last 6 rows. In future it needs more dynamic approach.

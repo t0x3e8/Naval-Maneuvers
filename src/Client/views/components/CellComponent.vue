@@ -1,10 +1,10 @@
 <template>
-    <div v-if="cellData.pawn && cellData.enemyPawn" class="boardCell splitCell" :class="classObject" @click="cellClicked">
+    <div v-if="cellData.pawn && cellData.enemyPawn" class="boardCell" :class="classObject" @click="cellClicked">
       <pawn :pawn-data="cellData.pawn" class="w-50 h-50" />
       <pawn :pawn-data="cellData.enemyPawn" class="w-50 h-50" style="margin-top: 50%; margin-left: 50%" />
     </div>
     <div v-else class="boardCell" :class="classObject" @click="cellClicked">
-      <pawn v-if="cellData.pawn" :pawn-data="cellData.pawn" />
+      <pawn v-if="cellData.pawn" :pawn-data="cellData.pawn" class="pawnCell"/>
     </div>
   </template>
 
@@ -81,21 +81,24 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   $sea-color: #1e88e5;
   $port1-color: #43a047;
   $port-entrance-color: #546e7a;
   $port2-color: #1b5e20;
   $neutral-color: #1155ff;
 
+  .pawnCell {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .boardCell {
+    position: relative;
     border-radius: 0%;
   }
-
-  .splitCell {
-    background-image: linear-gradient(to bottom right, transparent calc(50% - 1px), White, transparent calc(50% + 1px));
-  }
-
   .port1,
   .battery1 {
     background-color: $port1-color;
@@ -104,7 +107,6 @@ export default defineComponent({
     background-color: darken($port1-color, 30%);
     cursor: pointer;
   }
-
   .port2,
   .battery2 {
     background-color: $port2-color;
@@ -113,7 +115,6 @@ export default defineComponent({
     background-color: darken($port2-color, 30%);
     cursor: pointer;
   }
-
   .neutral {
     background-color: $neutral-color;
   }
@@ -121,7 +122,6 @@ export default defineComponent({
     background-color: darken($neutral-color, 30%);
     cursor: pointer;
   }
-
   .sea {
     background-color: $sea-color;
   }
@@ -129,7 +129,6 @@ export default defineComponent({
     background-color: darken($sea-color, 30%);
     cursor: pointer;
   }
-
   .entrance {
     background-color: $port-entrance-color;
   }

@@ -1,76 +1,78 @@
 <template>
-    <b-container fluid class="mt-0">
-      <b-row class="g-0">
-        <b-col cols="8" class="portSetup">
-            <Port :board="board" />
-        </b-col>
-      </b-row>
-    </b-container>
+    <div class="container-fluid mt-0">
+        <div class="row g-0">
+            <div class="col-1">
+                <button class="btn btn-outline-primary" @click="refreshPortSetup">
+                    <i class="bi bi-arrow-repeat"></i> Random port layout
+                </button>
+              </div>
+            <div class="col-1">
+                <button class="btn btn-outline-primary" @click="savePortSetup">
+                    <i class="bi bi-arrow-repeat"></i> Save
+                </button>
+            </div>
+        </div>
+        <div class="row g-0">
+            <div class="col-8">
+              <h3>This will be your default Port setting in the next games.</h3>
+            </div>
+          </div>
+        <div class="row g-0">
+            <div class="col-8">
+                <div id="port">
+                    <div v-for="(columns, rowIndex) in board.cells" :key="`1${rowIndex}`" class="row g-0">
+                        <div v-for="(cell, colIndex) in columns" :key="`2${colIndex}`" class="col">
+                            <cell :cell-data="cell" class="cell" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
-import { useRoute } from 'vue-router'
-import { useGameStore } from '../stores/gameStore.js'
-import Port from './components/PortComponent.vue'
+import { ref, onMounted } from 'vue'
 import PortBoard from './../GameEngine/portBoard.js'
+import Cell from './components/CellComponent.vue'
+import { usePlayerStore } from '../stores/playerStore'
 
 export default {
   name: 'PortSetupView',
   components: {
-    Port
+    Cell
   },
   setup () {
-    const gameStore = useGameStore()
-    const router = useRoute()
     const board = ref(new PortBoard())
-
-    const createGame = async (payload) => {
-      console.debug(`event-on: 'createGame' with payload ${JSON.stringify(payload)}`)
-      await gameStore.createGame({
-        gameName: payload.name,
-        pawns: board.value.toPawnArray()
-      })
-      router.push({ name: 'game' })
-    }
-
-    // const joinGame = async (payload) => {
-    //   console.log(`event-on: 'joinGame' with payload ${JSON.stringify(payload)}`)
-    //   await gameStore.openGame({
-    //     gameId: payload.gameId,
-    //     pawns: board.value.toRotatedPawnsArray()
-    //   })
-    //   router.push({ name: 'game' })
-    // }
-
-    const openGame = async (payload) => {
-      console.log(`event-on: 'openGame' with payload ${JSON.stringify(payload)}`)
-      await gameStore.openGame({
-        gameId: payload.gameId
-      })
-      router.push({ name: 'game' })
-    }
+    const playerStore = usePlayerStore()
 
     onMounted(() => {
-      // Add your event listeners here, consider using a different method than $root.$on
+      playerStore.loadPortSettings()
+      const pawnsRestored = playerStore.defaultPortSettings
+      board.value.initializePawns(pawnsRestored)
     })
 
-    onBeforeUnmount(() => {
-      // Clean up your event listeners here
-    })
-
-    return {
-      board,
-      createGame,
-      // joinGame,
-      openGame
+    const refreshPortSetup = () => {
+      console.debug('event: \'refreshPortSetup\'')
+      board.value = new PortBoard()
+      board.value.initializePawns()
     }
+
+    const savePortSetup = () => {
+      console.debug('event: \'savePortSetup\'')
+      playerStore.defaultPortSettings = board.value.toPawnArray()
+      playerStore.savePortSettings()
+    }
+
+    return { board, refreshPortSetup, savePortSetup }
   }
 }
 </script>
 
   <style scoped>
-    .portSetup {
-      border-left: 1px solid #00000010;
-    }
+  .cell {
+    width: 100%;
+    padding-bottom: 100%;
+    border: 1px white dashed;
+  }
 </style>
