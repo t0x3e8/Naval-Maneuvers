@@ -1,12 +1,13 @@
 <template>
-    <div v-if="cellData.pawn && cellData.enemyPawn" class="boardCell" :class="classObject" @click="cellClicked">
-      <pawn :pawn-data="cellData.pawn" class="w-50 h-50" />
-      <pawn :pawn-data="cellData.enemyPawn" class="w-50 h-50" style="margin-top: 50%; margin-left: 50%" />
-    </div>
-    <div v-else class="boardCell" :class="classObject" @click="cellClicked">
-      <pawn v-if="cellData.pawn" :pawn-data="cellData.pawn" class="pawnCell"/>
-    </div>
-  </template>
+  <div v-if="cellData.pawn && cellData.enemyPawn" class="boardCell" :class="classObject" @click="cellClicked">
+    <!-- Custom classes for width and height might be needed -->
+    <pawn :pawn-data="cellData.pawn" class="pawn-size" />
+    <pawn :pawn-data="cellData.enemyPawn" class="pawn-size pawn-position" />
+  </div>
+  <div v-else class="boardCell" :class="classObject" @click="cellClicked">
+    <pawn v-if="cellData.pawn" :pawn-data="cellData.pawn" class="pawnCell"/>
+  </div>
+</template>
 
 <script>
 import { defineComponent, computed, toRefs } from 'vue'
@@ -88,6 +89,14 @@ export default defineComponent({
   $port2-color: #1b5e20;
   $neutral-color: #1155ff;
 
+  .pawn-size {
+    width: 50%;
+    height: 50%;
+  }
+  .pawn-position {
+    margin-top: 50%;
+    margin-left: 50%;
+  }
   .pawnCell {
     width: 100%;
     height: 100%;

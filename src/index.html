@@ -1,37 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
 
-    <link type="image/x-icon" href="/assets/favicon.ico" rel="icon" />
-    <title>Naval Maneuvers</title>
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Naval Maneuvers</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#" onclick="loadGame()">Play</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" onclick="loadPortSetup()">Settings</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="/about">About</a>
-          </li>
-        </ul>
-      </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link type="image/x-icon" href="/assets/favicon.ico" rel="icon">
+  <title>Naval Maneuvers</title>
+</head>
+
+<body>
+  <header class="container">
+    <nav>
+      <ul>
+        <li><strong>Naval Maneuvers</strong></li>
+      </ul>
+      <ul>
+        <li><a href="#" role="button" onclick="loadGame()">Play</a></li>
+        <li><a href="#" role="button" onclick="loadPortSetup()">Settings</a></li>
+        <li><a href="/about" disabled>About</a></li>
+      </ul>
     </nav>
-    <div class="container-fluid">
-      <div id="app"></div>
-    </div>    
-  </body>
+  </header>
+
+  <main class="container">
+    <div class="grid">
+      <div class="game-grid">
+        <div id="app"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="container">
+    <small>
+      <a href="#">github</a> • <a href="#">Privacy Policy</a>
+    </small>
+  </footer>
+</body>
 
 </html>

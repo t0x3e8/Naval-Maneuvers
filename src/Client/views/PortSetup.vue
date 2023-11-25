@@ -1,34 +1,38 @@
 <template>
-    <div class="container-fluid mt-0">
-        <div class="row g-0">
-            <div class="col-1">
-                <button class="btn btn-outline-primary" @click="refreshPortSetup">
-                    <i class="bi bi-arrow-repeat"></i> Random port layout
-                </button>
-              </div>
-            <div class="col-1">
-                <button class="btn btn-outline-primary" @click="savePortSetup">
-                    <i class="bi bi-arrow-repeat"></i> Save
-                </button>
-            </div>
-        </div>
-        <div class="row g-0">
-            <div class="col-8">
-              <h3>This will be your default Port setting in the next games.</h3>
+  <div class="container">
+    <div class="grid">
+      <section>
+        <hgroup>
+          <h2>Design Your Fleet in Port</h2>
+          <p class="instructions">This will be your default Port setting in the next games.</p>
+        </hgroup>
+      </section>
+    </div>
+    <div class="grid">
+      <div>
+        <button class="contrast outline" @click="refreshPortSetup">
+          <!-- Icon class might need to change based on what icon library you use -->
+          <i class="bi bi-arrow-repeat"></i> Random port layout
+        </button>
+      </div>
+      <div>
+        <button class="contrast outline" @click="savePortSetup">
+          <i class="bi bi-arrow-repeat"></i> Save
+        </button>
+      </div>
+    </div>
+    <div class="grid">
+      <div>
+        <div id="port">
+          <div v-for="(columns, rowIndex) in board.cells" :key="`1${rowIndex}`" class="grid">
+            <div v-for="(cell, colIndex) in columns" :key="`2${colIndex}`">
+              <cell :cell-data="cell" class="cell" />
             </div>
           </div>
-        <div class="row g-0">
-            <div class="col-8">
-                <div id="port">
-                    <div v-for="(columns, rowIndex) in board.cells" :key="`1${rowIndex}`" class="row g-0">
-                        <div v-for="(cell, colIndex) in columns" :key="`2${colIndex}`" class="col">
-                            <cell :cell-data="cell" class="cell" />
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -69,10 +73,14 @@ export default {
 }
 </script>
 
-  <style scoped>
-  .cell {
-    width: 100%;
-    padding-bottom: 100%;
-    border: 1px white dashed;
-  }
+<style scoped>
+.cell {
+  width: 100%;
+  padding-bottom: 100%;
+  border: 1px white dashed;
+}
+
+#port .grid {
+  column-gap: 0px;
+}
 </style>

@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap/dist/js/bootstrap.js'
 import { createPinia } from 'pinia'
 import router from './router.js'
+import '@picocss/pico/css/pico.css'
+import './customs.css'
 
 const pinia = createPinia()
 
