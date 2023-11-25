@@ -71,7 +71,7 @@ class Board {
 
   /**
    * Function returns the array of all pawns on the board
-   * @returns {[pawn]} An array of pawns on the board
+   * @returns {[pawns]} An array of pawns on the board
    */
   toPawnArray () {
     const cellsWithPawns = _.filter(_.flatten(this.cells), (cell) => cell.pawn !== null)
