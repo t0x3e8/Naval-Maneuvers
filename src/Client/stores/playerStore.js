@@ -1,13 +1,21 @@
 import { defineStore } from 'pinia'
 
 export const usePlayerStore = defineStore('playerStore', {
-  // The `state` method returns the state object
   state: () => ({
-    player: {}
+    name: {},
+    defaultPortSettings: []
   }),
 
   actions: {
-    // Define other actions here
+    savePortSettings () {
+      localStorage.setItem('defaultPortSettings', JSON.stringify(this.defaultPortSettings))
+    },
+    loadPortSettings () {
+      const settings = localStorage.getItem('defaultPortSettings')
+      if (settings) {
+        this.defaultPortSettings = JSON.parse(settings)
+      }
+    }
   },
 
   // Getters can be used to define computed properties for the store

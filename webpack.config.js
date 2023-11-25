@@ -3,8 +3,10 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const CopyPlugin = require('copy-webpack-plugin')
+const webpack = require('webpack')
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -13,27 +15,50 @@ const stylesHandler = isProduction
   : 'style-loader'
 
 const config = {
-  entry: './src/main.js',
+  entry: './src/Client/main.js',
   output: {
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[contenthash].js',
+    chunkFilename: '[name].[contenthash].js',
+    clean: true
   },
   devServer: {
     open: true,
     host: 'localhost'
   },
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    },
+    minimizer: [
+      '...',
+      new CssMinimizerPlugin()
+    ]
+  },
   plugins: [
+    new webpack.DefinePlugin({
+      /* true: 'Options API', false: 'Composition API'.
+      Despite the fact that the Composition API is used in the app,
+      third-party components like vue-inline-svg use the Options API. */
+      __VUE_OPTIONS_API__: JSON.stringify(true),
+      /* false for production */
+      __VUE_PROD_DEVTOOLS__: JSON.stringify(false)
+    }),
     new HtmlWebpackPlugin({
-      template: 'src/index.html'
+      template: 'src/client/index.html'
     }),
     new VueLoaderPlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash].css'
+    }),
     new CopyPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, 'src/Client/assets/graphics/pawns'),
+          from: path.resolve(__dirname, 'src/client/assets/graphics/pawns'),
           to: path.resolve(__dirname, 'dist/assets/pawns')
         },
         {
-          from: path.resolve(__dirname, 'src/Client/assets/graphics/favicon.ico'),
+          from: path.resolve(__dirname, 'src/client/assets/graphics/favicon.ico'),
           to: path.resolve(__dirname, 'dist/assets/favicon.ico')
         }
       ]
