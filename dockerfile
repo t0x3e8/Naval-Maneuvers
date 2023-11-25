@@ -18,7 +18,7 @@ COPY .babelrc ./
 COPY src/ ./src/
 
 # Build the app for production
-RUN npm run build
+RUN npm run build:prod
 
 # Start a new stage from scratch for a lightweight production image
 FROM nginx:stable-alpine as production-stage

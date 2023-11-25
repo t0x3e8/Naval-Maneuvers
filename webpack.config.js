@@ -15,7 +15,7 @@ const stylesHandler = isProduction
   : 'style-loader'
 
 const config = {
-  entry: './src/Client/main.js',
+  entry: './src/client/main.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[contenthash].js',
