@@ -1,11 +1,13 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true
+    es2021: true,
+    'jest/globals': true
   },
   extends: [
     'standard',
-    'plugin:vue/vue3-essential'
+    'plugin:vue/vue3-essential',
+    'plugin:jest/recommended'
   ],
   overrides: [
     {
@@ -25,7 +27,8 @@ module.exports = {
     sourceType: 'module'
   },
   plugins: [
-    'vue'
+    'vue',
+    'jest'
   ],
   ignorePatterns: ['dist/'],
   rules: {
