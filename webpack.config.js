@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const CopyPlugin = require('copy-webpack-plugin')
+const webpack = require('webpack')
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -35,6 +36,14 @@ const config = {
     ]
   },
   plugins: [
+    new webpack.DefinePlugin({
+      /* true: 'Options API', false: 'Composition API'.
+      Despite the fact that the Composition API is used in the app,
+      third-party components like vue-inline-svg use the Options API. */
+      __VUE_OPTIONS_API__: JSON.stringify(true),
+      /* false for production */
+      __VUE_PROD_DEVTOOLS__: JSON.stringify(false)
+    }),
     new HtmlWebpackPlugin({
       template: 'src/index.html'
     }),
