@@ -2,8 +2,8 @@
   <div class="container">
     <div class="grid">
       <hgroup>
-        <h2>Design Your Fleet in Port</h2>
-        <p class="instructions">This will be your default Port setting in the next games.</p>
+        <h2>Arrange your fleet in the port</h2>
+        <p class="instructions">Your layout will be saved and set as the default for future games.</p>
       </hgroup>
     </div>
     <div class="grid">
