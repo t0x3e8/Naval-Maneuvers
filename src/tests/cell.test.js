@@ -1,8 +1,8 @@
 import Cell from '../client/GameEngine/cell.js'
 import GameBoard from '../client/GameEngine/gameboard.js'
 
-describe('CELL requirements', () => {
-  it('should initialize with default settings when a new Cell is created', () => {
+describe('Cell Class Functionality Tests', () => {
+  it('should properly initialize a Cell object with default values', () => {
     const cellData = {
       type: 1,
       colIndex: 2,
@@ -21,18 +21,18 @@ describe('CELL requirements', () => {
     expect(cell.board).toBe(cellData.board)
   })
 
-  it('should accurately determine neighbour-cells for cells at different positions on the board', () => {
+  it('should correctly identify adjacent cells for varying cell positions on the game board, including corners, edges, and center', () => {
     const board = new GameBoard()
-    const cellTopLeft = board.cells[0][0]
-    const cellBottomRight = board.cells[17][11]
-    const cellBottomLeft = board.cells[17][0]
-    const cellTopRight = board.cells[0][11]
-    const cellMiddle = board.cells[9][5]
+    const cellTopLeftCornerBoard = board.cells[0][0]
+    const cellBottomRightCornerBoard = board.cells[17][11]
+    const cellBottomLeftCornerBoard = board.cells[17][0]
+    const cellTopRightCornerBoard = board.cells[0][11]
+    const cellCenterBoard = board.cells[9][5]
 
-    expect(cellTopLeft.getAdjacentCells(board).length).toBe(3)
-    expect(cellBottomRight.getAdjacentCells(board).length).toBe(3)
-    expect(cellBottomLeft.getAdjacentCells(board).length).toBe(3)
-    expect(cellTopRight.getAdjacentCells(board).length).toBe(3)
-    expect(cellMiddle.getAdjacentCells(board).length).toBe(8)
+    expect(cellTopLeftCornerBoard.getAdjacentCells(board).length).toBe(3)
+    expect(cellBottomRightCornerBoard.getAdjacentCells(board).length).toBe(3)
+    expect(cellBottomLeftCornerBoard.getAdjacentCells(board).length).toBe(3)
+    expect(cellTopRightCornerBoard.getAdjacentCells(board).length).toBe(3)
+    expect(cellCenterBoard.getAdjacentCells(board).length).toBe(8)
   })
 })

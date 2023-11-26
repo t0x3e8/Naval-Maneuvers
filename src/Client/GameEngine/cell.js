@@ -1,5 +1,3 @@
-/* eslint-disable max-statements */
-
 /**
  * A class representing a Cell object.
  * @param {object} cellData - Object containing cell information as: type, columnIndex, rowIndex,
@@ -17,47 +15,32 @@ class Cell {
   }
 
   /**
-   * The function creates arrat of adjacent (neighboring) cells.
+   * The function creates array of adjacent (neighboring) cells.
    * Adjacent cells are those that are located directly on the X and Y axes.
    * @returns {array} The array containing adjacent cells
    */
   getAdjacentCells () {
     const adjacentCells = []
     const { col, row } = this
-    const offset = 1
+    const directions = [
+      [-1, 0], // Up
+      [-1, -1], // Up-left
+      [1, 0], // Down
+      [-1, 1], // Up-right
+      [0, -1], // Left
+      [1, -1], // Down-left
+      [0, 1], // Right
+      [1, 1] // Down-right
+    ]
 
-    // R-1, C
-    if (this.board.cells[row - offset]) {
-      adjacentCells.push(this.board.cells[row - offset][col])
-    }
-    // R-1, C-1
-    if (this.board.cells[row - offset] && this.board.cells[row - offset][col - offset]) {
-      adjacentCells.push(this.board.cells[row - offset][col - offset])
-    }
-    // R+1, C
-    if (this.board.cells[row + offset]) {
-      adjacentCells.push(this.board.cells[row + offset][col])
-    }
-    // R-1, C+1
-    if (this.board.cells[row - offset] && this.board.cells[row - offset][col + offset]) {
-      adjacentCells.push(this.board.cells[row - offset][col + offset])
-    }
-    // R, C-1
-    if (this.board.cells[row][col - offset]) {
-      adjacentCells.push(this.board.cells[row][col - offset])
-    }
-    // R+1, C-1
-    if (this.board.cells[row + offset] && this.board.cells[row + offset][col - offset]) {
-      adjacentCells.push(this.board.cells[row + offset][col - offset])
-    }
-    // R, C+1
-    if (this.board.cells[row][col + offset]) {
-      adjacentCells.push(this.board.cells[row][col + offset])
-    }
-    // R+1, C+1
-    if (this.board.cells[row + offset] && this.board.cells[row + offset][col + offset]) {
-      adjacentCells.push(this.board.cells[row + offset][col + offset])
-    }
+    directions.forEach(([dRow, dCol]) => {
+      const newRow = row + dRow
+      const newCol = col + dCol
+
+      if (this.board.cells[newRow] && this.board.cells[newRow][newCol]) {
+        adjacentCells.push(this.board.cells[newRow][newCol])
+      }
+    })
 
     return adjacentCells
   }
