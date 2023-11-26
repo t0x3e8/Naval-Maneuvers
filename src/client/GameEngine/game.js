@@ -1,4 +1,4 @@
-import GameBoard from './gameboard.js'
+import GameBoard from './gameBoard.js'
 import History from './history.js'
 import { HistoryType } from './gameEnums.js'
 import Player from './player.js'
