@@ -1,7 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable array-element-newline */
-/* eslint-disable no-magic-numbers */
-
 import { PawnType } from './gameEnums.js'
 
 export default {

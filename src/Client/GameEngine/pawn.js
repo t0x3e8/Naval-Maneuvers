@@ -1,21 +1,25 @@
 /* eslint-disable max-statements */
 import settings from './settings.js'
-import _ from 'underscore'
 
 /**
  * A class representing a Pawn object.
  * @returns {void}
  */
 class Pawn {
+  /**
+   * Constructs a Pawn instance.
+   * @param {number} pawnType - The type of the pawn.
+   * @throws Will throw an error if the pawnType is not specified or invalid.
+   */
   constructor (pawnType) {
-    if (_.isNull(pawnType) || _.isUndefined(pawnType)) {
+    if (pawnType == null) {
       throw new Error('Pawn Type must be specified')
     }
 
-    const pawnSetting = _.find(settings.pawns, (p) => p.typeId === pawnType)
+    const pawnSetting = settings.pawns.find(p => p.typeId === pawnType)
 
     if (!pawnSetting) {
-      throw new Error(`No Pawn of ${pawnType} in Settings`)
+      throw new Error(`No Pawn of type ${pawnType} found in Settings`)
     }
 
     this.type = pawnType
@@ -32,13 +36,18 @@ class Pawn {
     this.damageLevel = 0
   }
 
+  /**
+   * Updates the Pawn instance with data from the server.
+   * @param {Object} pawnData - The data to update the pawn with.
+   * @throws Will throw an error if the pawn is already updated or if the types don't match.
+   */
   update (pawnData) {
     if (this.pawnId !== null) {
-      throw new Error('Pawn is already updated')
+      throw new Error('Pawn has already been updated')
     }
 
     if (this.type !== pawnData.type) {
-      throw new Error("Type of Pawn don't match the pawnData")
+      throw new Error('Type of Pawn does not match the pawnData')
     }
 
     this.pawnId = pawnData.id
@@ -50,6 +59,11 @@ class Pawn {
     this.damageLevel = pawnData.damageLevel
   }
 
+  /**
+   * Updates the position of the Pawn.
+   * @param {number} newCol - The new column of the pawn.
+   * @param {number} newRow - The new row of the pawn.
+   */
   updatePosition (newCol, newRow) {
     this.oldCol = this.col
     this.oldRow = this.row
