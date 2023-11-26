@@ -1,9 +1,12 @@
 /**
  * A class representing a Cell object.
- * @param {object} cellData - Object containing cell information as: type, columnIndex, rowIndex,
  * @returns {void}
  */
 class Cell {
+  /**
+   * Creates a new Cell instance.
+   * @param {object} cellData - Object containing cell information as: type, columnIndex, rowIndex,
+   */
   constructor (cellData) {
     this.type = cellData.type
     this.col = cellData.colIndex

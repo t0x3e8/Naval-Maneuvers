@@ -1,53 +1,49 @@
-import uuid from 'uuid/v1'
+import { v4 as uuidv4 } from 'uuid'
 
 /**
- * Representing History of the Game
+ * Represents the history of game events.
  * @returns {void}
  */
 class History {
+  /**
+   * Creates a new History instance.
+   */
   constructor () {
-    const historyId = uuid()
-
+    this.historyId = uuidv4()
     this.records = []
-    this.recordNumber = 0
-
-    /**
-     * @returns {uuid} gets unique history id
-     */
-    this.getHistoryId = function () {
-      return historyId
-    }
-
-    /**
-     * @returns {uuid} Gets the current record number
-     */
-    this.getRecordNumber = function () {
-      return this.recordNumber
-    }
-
-    /**
-     * Increases and sets the record number
-     * @returns {void}
-     */
-    this.increaseRecordNumber = function () {
-      this.recordNumber += 1
-    }
   }
 
   /**
-   * Should be called to record a turn setup
-   * @param {payload} payload represents playerID, type (HistoryType)
-   * @returns {void}
+   * Gets the unique ID of this history instance.
+   * @returns {string} The unique history ID.
+   */
+  getHistoryId () {
+    return this.historyId
+  }
+
+  /**
+   * Gets the number of records in the history.
+   * @returns {number} The current number of records.
+   */
+  getRecordNumber () {
+    return this.records.length
+  }
+
+  /**
+   * Records a new event in the history.
+   * @param {object} payload - The event data to record, typically includes playerID and event type.
    */
   record (payload) {
+    if (!payload || !payload.type) {
+      throw new Error('Invalid payload for history record.')
+    }
+
     const record = {
-      type: payload.type,
-      playerID: payload.playerId,
+      ...payload,
       id: this.getRecordNumber()
     }
 
     this.records.push(record)
-    this.increaseRecordNumber()
   }
 }
 

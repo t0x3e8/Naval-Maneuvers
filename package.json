@@ -4,6 +4,7 @@
     "axios": "^1.6.1",
     "pinia": "^2.1.7",
     "underscore": "^1.13.6",
+    "uuid": "^9.0.1",
     "vue": "^3.3.8",
     "vue-inline-svg": "^3.1.2",
     "vue-router": "^4.2.5"
