@@ -1,5 +1,5 @@
 import Cell from '../client/GameEngine/cell.js'
-import GameBoard from '../client/GameEngine/gameboard.js'
+import GameBoard from '../client/GameEngine/gameBoard.js'
 
 describe('Cell Class Functionality Tests', () => {
   it('should properly initialize a Cell object with default values', () => {
