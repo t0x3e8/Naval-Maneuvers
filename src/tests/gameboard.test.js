@@ -5,7 +5,7 @@ import Pawn from '../client/GameEngine/pawn.js'
 import _ from 'underscore'
 import settings from '../client/GameEngine/settings.js'
 
-describe('GAMEBOARD requirements', () => {
+describe('GameBoard Class Functionality Tests', () => {
   let board
 
   beforeEach(() => {

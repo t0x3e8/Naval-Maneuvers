@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid'
 
 /**
+ * *
  * Represents the history of game events.
- * @returns {void}
  */
 class History {
   /**

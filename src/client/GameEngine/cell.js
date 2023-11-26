@@ -1,6 +1,6 @@
 /**
+ * *
  * A class representing a Cell object.
- * @returns {void}
  */
 class Cell {
   /**

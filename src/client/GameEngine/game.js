@@ -5,8 +5,8 @@ import Player from './player.js'
 import _ from 'underscore'
 
 /**
+ * *
  * Represents a game with its own board, history, players, and state.
- * @returns {void}
  */
 class Game {
   /**

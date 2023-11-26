@@ -1,9 +1,8 @@
-/* eslint-disable max-statements */
 import settings from './settings.js'
 
 /**
+ * *
  * A class representing a Pawn object.
- * @returns {void}
  */
 class Pawn {
   /**
