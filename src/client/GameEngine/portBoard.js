@@ -14,6 +14,7 @@ class PortBoard extends Board {
   constructor () {
     super()
     this.displayPortCells()
+    this.initializePawns()
   }
 
   /**
