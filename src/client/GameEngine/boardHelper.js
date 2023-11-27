@@ -1,4 +1,3 @@
-/* eslint-disable no-magic-numbers */
 import settings from './settings.js'
 import { forEach } from 'underscore'
 import Pawn from './pawn.js'
