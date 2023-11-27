@@ -2,7 +2,7 @@ import GameBoard from './gameBoard.js'
 import History from './history.js'
 import { HistoryType } from './gameEnums.js'
 import Player from './player.js'
-import _ from 'underscore'
+import { partition, isEmpty } from 'underscore'
 
 /**
  * *
@@ -14,7 +14,7 @@ class Game {
    * @param {Object} gameData - Data required to initialize the game.
    */
   constructor (gameData) {
-    if (_.isEmpty(gameData) || !gameData.id) {
+    if (isEmpty(gameData) || !gameData.id) {
       throw new Error('Game initialization requires valid gameData with an id.')
     }
 
@@ -39,7 +39,7 @@ class Game {
     if (!(player instanceof Player)) {
       throw new Error('Invalid player object provided.')
     }
-    const [activePawns, inactivePawns] = _.partition(pawnsData, pawn => pawn.damageLevel === 0)
+    const [activePawns, inactivePawns] = partition(pawnsData, pawn => pawn.damageLevel === 0)
 
     this.players.push(player)
     this.board.setPawns(activePawns)

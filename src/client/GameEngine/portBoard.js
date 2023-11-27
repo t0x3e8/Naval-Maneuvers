@@ -1,10 +1,11 @@
-import _ from 'underscore'
+import { filter, shuffle, flatten, last } from 'underscore'
 import { CellType, PawnType } from './gameEnums.js'
 import BoardHelper from './boardHelper.js'
 import Pawn from './pawn.js'
 import Board from './board.js'
 
 /**
+ * *
  * Represents the structure of the port board, including characteristics of cells and pawn setup.
  */
 class PortBoard extends Board {
@@ -23,21 +24,21 @@ class PortBoard extends Board {
    */
   initializePawns (pawns) {
     // Directly use provided pawns or filter non-battery pawns from default set
-    const allPawns = pawns || _.filter(
+    const allPawns = pawns || filter(
       BoardHelper.getAllPawns(),
       (pawn) => pawn.type !== PawnType.MINE && pawn.type !== PawnType.BATTERY
     )
 
     // Shuffle and filter port and entrance cells
-    const portCells = _.shuffle(
-      _.flatten(this.cells).filter(
+    const portCells = shuffle(
+      flatten(this.cells).filter(
         (cell) => cell.type === CellType.PLAYER_TWO_PORT || cell.type === CellType.PLAYER_TWO_ENTRANCE
       )
     )
 
     // Assign battery pawns to battery cells if pawns are not provided
     if (!pawns) {
-      const batteryCells = _.flatten(this.cells).filter(
+      const batteryCells = flatten(this.cells).filter(
         (cell) => cell.type === CellType.PLAYER_TWO_BATTERY
       )
 
@@ -66,7 +67,7 @@ class PortBoard extends Board {
     // ToDo: Hardcoded, as the cells are limitted to the last 6 rows. In future it needs more dynamic approach.
     const showBoardRows = 6
 
-    this.cells = _.last(this.cells, showBoardRows)
+    this.cells = last(this.cells, showBoardRows)
   }
 }
 

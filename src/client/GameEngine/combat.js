@@ -3,30 +3,35 @@ import { find, contains } from 'underscore'
 import { CombatResult } from './gameEnums.js'
 
 /**
- * Object processes combats based on provided oponents.
- * @return {void}
+ * Object processes combats based on provided opponents.
  */
 class Combat {
   /**
-   * Functions processes the result of the combat.
-   * @param {number} attackerUnitType The number which represents attacker unit type.
-   * @param {number} defenderUnitType The number which represents attacker unit type.
-   * @returns {number} Number which represents result of combat: 1 attacker wins,
-   * 0 attacker and defender lose, 1 defender wins
+   * Processes the result of the combat.
+   * @param {number} attackerUnitType The number representing the attacker's unit type.
+   * @param {number} defenderUnitType The number representing the defender's unit type.
+   * @returns {number} Number representing the result of combat:
+   * - `CombatResult.ATTACKER_WINS` if the attacker wins,
+   * - `CombatResult.DEFENDER_WINS` if the defender wins,
+   * - `CombatResult.DEFENDER_AND_ATTACKER_LOSE` if both lose.
    */
   static process (attackerUnitType, defenderUnitType) {
     const attPawn = find(settings, element => element.typeId === attackerUnitType)
     const defPawn = find(settings, element => element.typeId === defenderUnitType)
 
-    if (contains(attPawn.destroy, defPawn.typeId) && contains(defPawn.destroy, attPawn.typeId)) {
-      return CombatResult.DefenderAndAttackerLose
-    } else if (contains(attPawn.destroy, defPawn.typeId)) {
-      return CombatResult.AttackerWins
-    } else if (contains(defPawn.destroy, attPawn.typeId)) {
-      return CombatResult.DefenderWins
+    if (!attPawn || !defPawn) {
+      // Handle error or return a default value
     }
 
-    return CombatResult.DefenderAndAttackerLose
+    if (contains(attPawn.destroy, defPawn.typeId) && contains(defPawn.destroy, attPawn.typeId)) {
+      return CombatResult.DEFENDER_AND_ATTACKER_LOSE
+    } else if (contains(attPawn.destroy, defPawn.typeId)) {
+      return CombatResult.ATTACKER_WINS
+    } else if (contains(defPawn.destroy, attPawn.typeId)) {
+      return CombatResult.DEFENDER_WINS
+    }
+
+    return CombatResult.DEFENDER_AND_ATTACKER_LOSE
   }
 }
 

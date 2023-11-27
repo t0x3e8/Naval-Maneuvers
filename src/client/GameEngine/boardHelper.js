@@ -1,6 +1,6 @@
 /* eslint-disable no-magic-numbers */
 import settings from './settings.js'
-import _ from 'underscore'
+import { forEach } from 'underscore'
 import Pawn from './pawn.js'
 
 class BoardHelper {
@@ -16,7 +16,7 @@ class BoardHelper {
     let step = 0
     let pawn = null
 
-    _.forEach(pawnsMap, (pawnSetting) => {
+    forEach(pawnsMap, (pawnSetting) => {
       for (step = 0; step < pawnSetting.fleetSize; step += 1) {
         pawn = new Pawn(pawnSetting.typeId)
 

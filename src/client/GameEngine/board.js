@@ -1,7 +1,7 @@
 /* eslint-disable no-magic-numbers */
 import settings from './settings.js'
 import Cell from './cell.js'
-import _ from 'underscore'
+import { filter, map, flatten } from 'underscore'
 
 /**
  * The Board object represents the structure of the board, including characteristics  of board eg.
@@ -74,8 +74,8 @@ class Board {
    * @returns {[pawns]} An array of pawns on the board
    */
   toPawnArray () {
-    const cellsWithPawns = _.filter(_.flatten(this.cells), (cell) => cell.pawn !== null)
-    const pawns = _.map(cellsWithPawns, (cell) => cell.pawn)
+    const cellsWithPawns = filter(flatten(this.cells), (cell) => cell.pawn !== null)
+    const pawns = map(cellsWithPawns, (cell) => cell.pawn)
 
     return pawns
   }
@@ -88,7 +88,7 @@ class Board {
     const pawns = this.toPawnArray()
     const { numberOfColumns, numberOfRows } = settings.board
     const lengthToIndex = 1
-    const pawnsRotated = _.map(pawns, (pawn) => {
+    const pawnsRotated = map(pawns, (pawn) => {
       pawn.col = numberOfColumns - lengthToIndex - pawn.col
       pawn.row = numberOfRows - lengthToIndex - pawn.row
 
