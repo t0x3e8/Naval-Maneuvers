@@ -1,4 +1,4 @@
-import Utils from '../client/GameEngine/Utils.js'
+import Utils from '../client/GameEngine/utils.js'
 
 describe('Utils Class Functionality Tests', () => {
   describe('Random number generation', () => {
