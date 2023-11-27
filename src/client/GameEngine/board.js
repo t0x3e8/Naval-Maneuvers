@@ -1,7 +1,6 @@
-/* eslint-disable no-magic-numbers */
 import settings from './settings.js'
 import Cell from './cell.js'
-import _ from 'underscore'
+import Pawn from './pawn.js'
 
 /**
  * The Board object represents the structure of the board, including characteristics  of board eg.
@@ -20,82 +19,87 @@ class Board {
   }
 
   /**
-   * Initialized the intance of Board with an array of cells. The map of the cells is based on settings.js
-   * @returns {array} Returns 2-dimentional array of cells
-   * @param {boolean} portMode determines whether full Board should be initialized or only Player's port
-   */
+ * Initializes the instance of Board with an array of cells.
+ * The layout of the cells is determined based on the configuration provided in settings.js.
+ */
   initializeCells () {
-    const { map, numberOfColumns, numberOfRows } = settings.board
+    const { map: boardLayout, numberOfColumns, numberOfRows } = settings.board
 
-    let colPosition = 0
-    let rowPosition = 0
-    let cellType = 0
-    let row = []
+    this.cells = []
 
-    for (rowPosition = 0; rowPosition < numberOfRows; rowPosition += 1) {
-      row = []
-      for (colPosition = 0; colPosition < numberOfColumns; colPosition += 1) {
-        cellType = map[rowPosition][colPosition]
-        row[colPosition] = new Cell({
+    for (let rowPosition = 0; rowPosition < numberOfRows; rowPosition++) {
+      const row = []
+      for (let colPosition = 0; colPosition < numberOfColumns; colPosition++) {
+        const cellType = boardLayout[rowPosition][colPosition]
+        row.push(new Cell({
           type: cellType,
           colIndex: colPosition,
           rowIndex: rowPosition,
           board: this
-        })
+        }))
       }
-      this.cells[rowPosition] = row
+      this.cells.push(row)
     }
   }
 
   /**
-   * Function assigned a specified pawn to the cell
-   * @param {Cell} cell to which the pawn will be assigned
-   * @param {Pawn} pawn which represents the ship
-   * @param {Pawn} enemyPawn optional argument, represents enemyPawn
-   */
-  // eslint-disable-next-line class-methods-use-this
+ * Assigns a specified pawn and optionally an enemy pawn to the cell.
+ * @param {Cell} cell - The cell to which the pawn will be assigned.
+ * @param {Pawn} pawn - The pawn representing the ship.
+ * @param {Pawn} [enemyPawn=null] - Optional, represents the enemy pawn.
+ */
   assignPawn (cell, pawn, enemyPawn = null) {
+    if (!cell || !(cell instanceof Cell)) {
+      throw new Error('Invalid cell provided')
+    }
+
+    if (pawn && !(pawn instanceof Pawn)) {
+      throw new Error('Invalid pawn provided')
+    }
+
+    if (enemyPawn && !(enemyPawn instanceof Pawn)) {
+      throw new Error('Invalid enemy pawn provided')
+    }
+
     cell.pawn = pawn
     cell.enemyPawn = enemyPawn
 
-    // Updates the pawn position only if changes
+    // Updates pawn position if it has changed
     if (pawn && (pawn.col !== cell.col || pawn.row !== cell.row)) {
       pawn.updatePosition(cell.col, cell.row)
     }
 
-    // updates the enemy pawn position only if changes
+    // Updates enemy pawn position if it has changed
     if (enemyPawn && (enemyPawn.col !== cell.col || enemyPawn.row !== cell.row)) {
       enemyPawn.updatePosition(cell.col, cell.row)
     }
   }
 
   /**
-   * Function returns the array of all pawns on the board
-   * @returns {[pawns]} An array of pawns on the board
-   */
+ * Function returns the array of all pawns on the board.
+ * @returns {Pawn[]} An array of pawns on the board.
+ */
   toPawnArray () {
-    const cellsWithPawns = _.filter(_.flatten(this.cells), (cell) => cell.pawn !== null)
-    const pawns = _.map(cellsWithPawns, (cell) => cell.pawn)
-
-    return pawns
+    return this.cells
+      .flat() // Flattens 2D => 1D array
+      .filter(cell => cell.pawn !== null)
+      .map(cell => cell.pawn)
   }
 
   /**
-   * Function returns the array of all board pawns misplaced (rotated) by 180 degrees
-   * @returns {[pawn]} An array of rotated pawns on the board
-   */
+ * Function returns the array of all board pawns misplaced (rotated) by 180 degrees.
+ * @returns {Pawn[]} An array of rotated pawns on the board.
+ */
   toRotatedPawnsArray () {
     const pawns = this.toPawnArray()
     const { numberOfColumns, numberOfRows } = settings.board
-    const lengthToIndex = 1
-    const pawnsRotated = _.map(pawns, (pawn) => {
-      pawn.col = numberOfColumns - lengthToIndex - pawn.col
-      pawn.row = numberOfRows - lengthToIndex - pawn.row
+    const offset = 1
 
-      return pawn
-    })
-
-    return pawnsRotated
+    return pawns.map(pawn => ({
+      ...pawn,
+      col: numberOfColumns - pawn.col - offset,
+      row: numberOfRows - pawn.row - offset
+    }))
   }
 }
 

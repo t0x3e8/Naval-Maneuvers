@@ -1,21 +1,18 @@
-/* eslint-disable max-lines */
-/* eslint-disable max-lines-per-function */
-/* eslint-disable max-statements */
-/* eslint-disable no-magic-numbers */
-
 import Rules from './Utils/Rules.js'
-import _ from 'underscore'
 import Board from './board.js'
 import Pawn from './pawn.js'
 import settings from './settings.js'
 import { GameState } from './gameEnums.js'
 
 /**
- * The Board object represents the structure of the board, including characteristics  of board eg.
- * cells of ports and the neutral cells. In addition, it shows the setup of pawns on the board of players.
- * @returns {void}
+ * *
+ * The GameBoard class extends the Board class to manage the game state,
+ * including pawn movements and interactions.
  */
 class GameBoard extends Board {
+  /**
+   * Creates a new GameBoard instance.
+   */
   constructor () {
     super()
 
@@ -24,9 +21,14 @@ class GameBoard extends Board {
     this.movedPawns = []
     this.movesPerTurn = movesPerTurn
     this.game = null
+  }
 
-    // eslint-disable-next-line max-len
-    this.canMove = () => this.movedPawns.length < this.movesPerTurn && this.game && this.game.state === GameState.STARTED
+  /**
+   * Checks if more pawns can move in the current turn
+   * @returns a boolean value.
+   */
+  canMove () {
+    return this.movedPawns.length < this.movesPerTurn && this.game && this.game.state === GameState.STARTED
   }
 
   /**
@@ -35,42 +37,39 @@ class GameBoard extends Board {
    * @returns {void}
    */
   setPawns (pawnsData) {
-    // _.forEach(pawnsData, (pawnData) => {
-    for (const pawnData of pawnsData) {
+    pawnsData.forEach((pawnData) => {
       const pawn = new Pawn(pawnData.type)
-
       pawn.update(pawnData)
 
-      if (this.cells[pawn.row][pawn.col].pawn !== null) {
-        throw new Error('Pawn already exist')
+      const cell = this.cells[pawn.row][pawn.col]
+      if (cell.pawn !== null) {
+        throw new Error(`Pawn already exists at row ${pawn.row} and column ${pawn.col}`)
       }
 
-      this.assignPawn(this.cells[pawn.row][pawn.col], pawn)
-    }
+      this.assignPawn(cell, pawn)
+    })
   }
 
   /**
-   * Select a pawn at specific cell
-   * @param {*} payload - object with: col, row
-   * @returns {void}
+   * Selects a pawn based on the provided payload if a move is possible
+   * @param payload - The `payload` parameter is an object that contains information about the row and
+   * column of the cell that needs to be selected.
    */
   select (payload) {
     const pawnToSelect = this.cells[payload.row][payload.col].pawn
 
     this.unselectAny()
     if (this.canMove() && pawnToSelect) {
-      console.log(`pawnToSelect: ${JSON.stringify(pawnToSelect)}`)
       pawnToSelect.selected = true
     }
   }
 
   /**
-   * Unselect any pawn if selected
+   * Unselects any currently selected pawn
    * @returns {void}
    */
   unselectAny () {
     const pawnSelected = this.getSelected()
-
     if (pawnSelected) {
       this.unselect({
         col: pawnSelected.col,
@@ -80,93 +79,64 @@ class GameBoard extends Board {
   }
 
   /**
-   * Unselect a pawn at specific cell
-   * @param {*} payload - object with: col, row
-   * @returns {void}
+   * Unselects a pawn based on the provided payload
+   * @param payload - The payload parameter is an object that contains information about the row and
    */
   unselect (payload) {
     const pawnToUnselect = this.cells[payload.row][payload.col].pawn
-
-    console.log(`pawnToUnselect: ${JSON.stringify(pawnToUnselect)}`)
-
     if (pawnToUnselect) {
       pawnToUnselect.selected = false
     }
   }
 
   /**
-   * Loop through all cells to find a pawn which is selected
-   * @returns {pawn} or null if not found
+   * Returns the currently selected pawn, if any
+   * @returns The function `getSelected()` returns the selected pawn object from the cells array. If no
+   * pawn is selected, it returns null.
    */
   getSelected () {
-    const allCells = _.flatten(this.cells)
-    const selectedCell = _.find(allCells, (cell) => cell.pawn && cell.pawn.selected)
-
-    if (selectedCell) {
-      return selectedCell.pawn
+    for (const row of this.cells) {
+      for (const cell of row) {
+        if (cell.pawn && cell.pawn.selected) {
+          return cell.pawn
+        }
+      }
     }
-
     return null
   }
 
   /**
-   * The function selects cells that are within the Pawn's range.
-   * The selected cells change the inRange property to true.
-   * The algorithm used: Breadth First Search
-   * @param {pawn} pawn The pawn for which selection is conducted
-   * @returns {void}
+   * Marks cells within range of the given pawn
+   * @param pawn - The `pawn` parameter represents an object that has properties `range`, `row`, and
+   * `col`. It is used to determine the range of cells to be marked as in range.
+   * @returns The function does not explicitly return a value.
    */
   rangeCells (pawn) {
     if (!pawn || pawn.range === 0) {
       return
     }
 
-    const queue = []
-
-    let currentDepth = 1
-    let elementsToDepthIncrease = 1
-    let nextElementsToDepthIncrease = 0
-    let cell = this.cells[pawn.row][pawn.col]
-    let adjacentCells = []
-    let i = 0
-
-    queue.push(cell)
+    const queue = [this.cells[pawn.row][pawn.col]]
+    let currentDepth = 1; let elementsToDepthIncrease = 1; let nextElementsToDepthIncrease = 0
 
     while (queue.length > 0) {
-      cell = queue.shift(1)
-      adjacentCells = cell.getAdjacentCells()
-
+      const cell = queue.shift()
+      const adjacentCells = cell.getAdjacentCells()
       nextElementsToDepthIncrease += adjacentCells.length
 
-      // eslint-disable-next-line no-loop-func
-      for (i = 0; i < adjacentCells.length; i += 1) {
-        const adjacentCell = adjacentCells[i]
-
-        /*
-         * Adjacent Cell cannot be alredy "inRange" meaning not being already visited,
-         * Adjacent Cell cannot have a Pawn assigned unless it's enemy Pawn
-         * Adjacent Cell and Main Cell cannot be pair of Sea and Port
-         */
-        if (
-          Rules.isCellInRange(adjacentCell) ||
-          // eslint-disable-next-line no-extra-parens
-          (Rules.isPawnInCell(adjacentCell) && !Rules.isEnemyPawnInCell(adjacentCell)) ||
-          Rules.isPairOfSeaAndPort(adjacentCell, cell)
-        ) {
-          nextElementsToDepthIncrease -= 1
-        } else {
+      adjacentCells.forEach((adjacentCell) => {
+        if (this.isValidCellForRange(adjacentCell, cell)) {
           adjacentCell.inRange = true
           queue.push(adjacentCell)
+        } else {
+          nextElementsToDepthIncrease -= 1
         }
-      }
+      })
 
-      elementsToDepthIncrease -= 1
-      if (elementsToDepthIncrease === 0) {
-        currentDepth += 1
-        if (currentDepth > pawn.range) {
-          return
+      if (--elementsToDepthIncrease === 0) {
+        if (++currentDepth > pawn.range) {
+          break
         }
-
         elementsToDepthIncrease = nextElementsToDepthIncrease
         nextElementsToDepthIncrease = 0
       }
@@ -174,27 +144,41 @@ class GameBoard extends Board {
   }
 
   /**
-   * Cleans the range of the selection
+   * Checks if a cell is valid for range marking
+   * @param adjacentCell - The adjacentCell parameter represents a cell that is adjacent to another cell.
+   * @param cell - The "cell" parameter represents a specific cell on a game board.
+   * @returns a boolean value.
+   */
+  isValidCellForRange (adjacentCell, cell) {
+    return !Rules.isCellInRange(adjacentCell) &&
+        (!Rules.isPawnInCell(adjacentCell) || Rules.isEnemyPawnInCell(adjacentCell)) &&
+        !Rules.isPairOfSeaAndPort(adjacentCell, cell)
+  }
+
+  /**
+   * Clears the range marking from all cells
    * @returns {void}
    */
   cleanRange () {
     const { numberOfColumns, numberOfRows } = settings.board
-
-    for (let r = 0; r < numberOfRows; r += 1) {
-      for (let c = 0; c < numberOfColumns; c += 1) {
+    for (let r = 0; r < numberOfRows; r++) {
+      for (let c = 0; c < numberOfColumns; c++) {
         this.cells[r][c].inRange = false
       }
     }
   }
 
   /**
-   * Function to move the pawn from the origin cell to destination cell
+   * Moves a pawn from the origin cell to the destination cell
    * @param {Cell} originCell must contain assigned pawn
    * @param {Cell} destinationCell it's an empty cell to which the pawn will be assigned
    * @returns {void}
    */
   move (originCell, destinationCell) {
-    const { pawn } = this.cells[originCell.row][originCell.col]
+    const pawn = this.cells[originCell.row][originCell.col].pawn
+    if (!pawn) {
+      throw new Error('Origin cell does not contain a pawn')
+    }
 
     originCell.pawn = null
     this.assignPawn(destinationCell, pawn)
@@ -203,7 +187,7 @@ class GameBoard extends Board {
   }
 
   /**
-   * Function to attack the destination pawn from the origin pawn
+   * Attacks a target pawn from the attacker pawn
    * @param {Cell} attackerCell must contain origin pawn
    * @param {Cell} targetCell must contain destination pawn
    * @returns {void}
@@ -212,14 +196,14 @@ class GameBoard extends Board {
     const attackerPawn = this.cells[attackerCell.row][attackerCell.col].pawn
     const targetPawn = this.cells[targetCell.row][targetCell.col].pawn
 
-    if (attackerPawn && targetPawn) {
-      attackerCell.pawn = null
-      this.assignPawn(targetCell, targetPawn, attackerPawn)
-
-      this.movedPawns.push(attackerPawn)
-    } else {
-      console.log('Missing pawn argument for the operation')
+    if (!attackerPawn || !targetPawn) {
+      throw new Error('Missing pawn argument for the operation')
     }
+
+    attackerCell.pawn = null
+    this.assignPawn(targetCell, targetPawn, attackerPawn)
+
+    this.movedPawns.push(attackerPawn)
   }
 }
 
