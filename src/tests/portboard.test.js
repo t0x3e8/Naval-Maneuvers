@@ -1,4 +1,4 @@
-import PortBoard from '../client/GameEngine/portboard.js'
+import PortBoard from '../client/GameEngine/portBoard.js'
 import { CellType, PawnType } from '../client/GameEngine/gameEnums'
 import settings from '../client/GameEngine/settings.js'
 import _ from 'underscore'
