@@ -5,6 +5,7 @@ export default {
     numberOfColumns: 12,
     numberOfRows: 18,
     movesPerTurn: 1,
+    portViewNumberOfRows: 6,
     map: [
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
       [1, 1, 3, 5, 1, 1, 1, 1, 1, 1, 1, 1],

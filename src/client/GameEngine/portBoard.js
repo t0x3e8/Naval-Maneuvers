@@ -3,6 +3,7 @@ import { CellType, PawnType } from './gameEnums.js'
 import BoardHelper from './boardHelper.js'
 import Pawn from './pawn.js'
 import Board from './board.js'
+import settings from './settings.js'
 
 /**
  * *
@@ -64,10 +65,8 @@ class PortBoard extends Board {
    * Displays only the port cells of the board.
    */
   displayPortCells () {
-    // ToDo: Hardcoded, as the cells are limitted to the last 6 rows. In future it needs more dynamic approach.
-    const showBoardRows = 6
-
-    this.cells = last(this.cells, showBoardRows)
+    const { portViewNumberOfRows } = settings.board
+    this.cells = last(this.cells, portViewNumberOfRows)
   }
 }
 
