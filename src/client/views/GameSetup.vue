@@ -40,7 +40,7 @@ export default {
       console.debug(`event-on: 'createGame' with payload ${JSON.stringify(payload)}`)
       await gameStore.createGame({
         gameName: payload.name,
-        pawns: board.value.toPawnArray()
+        pawns: board.value.preservePawns()
       })
       router.push({ name: 'game' })
     }

@@ -79,7 +79,7 @@ class Board {
  * Function returns the array of all pawns on the board.
  * @returns {Pawn[]} An array of pawns on the board.
  */
-  toPawnArray () {
+  preservePawns () {
     return this.cells
       .flat() // Flattens 2D => 1D array
       .filter(cell => cell.pawn !== null)
@@ -91,7 +91,7 @@ class Board {
  * @returns {Pawn[]} An array of rotated pawns on the board.
  */
   toRotatedPawnsArray () {
-    const pawns = this.toPawnArray()
+    const pawns = this.preservePawns()
     const { numberOfColumns, numberOfRows } = settings.board
     const offset = 1
 

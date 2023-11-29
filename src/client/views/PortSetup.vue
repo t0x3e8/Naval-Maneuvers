@@ -60,7 +60,7 @@ export default {
 
     const savePortSetup = () => {
       console.debug('event: \'savePortSetup\'')
-      playerStore.defaultPortSettings = board.value.toPawnArray()
+      playerStore.defaultPortSettings = board.value.preservePawns()
       playerStore.savePortSettings()
     }
 
