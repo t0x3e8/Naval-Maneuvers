@@ -87,6 +87,35 @@ class Board {
   }
 
   /**
+   * Set up pawns on the board according to their specified positions.
+   *
+   * @param {Pawn[]} pawns - An array of pawns to be placed on the board.
+   */
+  setupPawns (pawns) {
+    const self = this
+
+    pawns.forEach(pawn => {
+      const { col, row } = pawn
+
+      // a row value out of the board range
+      if (row < 0 || row >= self.cells.length) {
+        throw new Error(`Pawn ${pawn.pawnId} is out of row range`)
+      }
+      // a row value out of the board range
+      if (col < 0 || col >= self.cells[row].length) {
+        throw new Error(`Pawn ${pawn.pawnId} is out of column range`)
+      }
+
+      // the target cell is already occupied by another pawn
+      if (self.cells[row][col].pawn !== null) {
+        throw new Error(`Cell: [${row}][${col}] has pawn already assigne`)
+      }
+
+      self.cells[row][col].pawn = pawn
+    })
+  }
+
+  /**
  * Function returns the array of all board pawns misplaced (rotated) by 180 degrees.
  * @returns {Pawn[]} An array of rotated pawns on the board.
  */
