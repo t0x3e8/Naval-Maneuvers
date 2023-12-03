@@ -159,6 +159,36 @@ describe('Board Class Functionality Tests', () => {
   })
 
   describe('toRotatedPawnsArray Function Tests', () => {
+    it('should correctly rotate the pawn positions', () => {
+      const { numberOfColumns, numberOfRows } = settings.board
 
+      // Initialize half of the board with pawns
+      for (let r = 0; r < numberOfRows / 2; r++) {
+        for (let c = 0; c < numberOfColumns; c++) {
+          const pawn = new Pawn(PawnType.DESTROYER)
+          pawn.update({ type: PawnType.DESTROYER })
+          board.assignPawn(board.cells[r][c], pawn)
+        }
+      }
+
+      const pawns = board.preservePawns()
+      const rotatedPawns = board.toRotatedPawnsArray()
+
+      // Check the length of the pawns arrays
+      expect(pawns.length).toBe(numberOfRows / 2 * numberOfColumns)
+      expect(rotatedPawns.length).toBe(numberOfRows / 2 * numberOfColumns)
+
+      // Check if each rotated pawn is in the expected position
+      let rotatedPawnsCount = 0
+      for (let r = numberOfRows - 1; r >= numberOfRows / 2; r--) {
+        for (let c = 0; c < numberOfColumns; c++) {
+          const foundPawn = rotatedPawns.find(pawn => pawn.row === r && pawn.col === c)
+          expect(foundPawn).not.toBe(undefined)
+          rotatedPawnsCount++
+        }
+      }
+
+      expect(rotatedPawnsCount).toEqual(pawns.length)
+    })
   })
 })
