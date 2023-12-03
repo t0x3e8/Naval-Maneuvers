@@ -197,4 +197,12 @@ describe('Board Class Functionality Tests', () => {
       expect(board.portCells.length).toBe(6)
     })
   })
+
+  describe('numberOfColumns Function Tests', () => {
+    test('should update portCells with the last N rows from cells', () => {
+      const { portViewNumberOfRows, numberOfColumns } = settings.board
+      expect(board.portCells.length).toEqual(portViewNumberOfRows)
+      expect(board.portCells[0].length).toEqual(numberOfColumns)
+    })
+  })
 })
