@@ -1,6 +1,7 @@
 import settings from './settings.js'
 import Cell from './cell.js'
 import Pawn from './pawn.js'
+import { last } from 'underscore'
 
 /**
  * The Board object represents the structure of the board, including characteristics  of board eg.
@@ -13,9 +14,11 @@ class Board {
    */
   constructor () {
     this.cells = []
+    this.portCells = []
     this.boardId = null
 
     this.initializeCells()
+    this.preparePortCells()
   }
 
   /**
@@ -40,6 +43,14 @@ class Board {
       }
       this.cells.push(row)
     }
+  }
+
+  /**
+  * Displays only the port cells of the board.
+  */
+  preparePortCells () {
+    const { portViewNumberOfRows } = settings.board
+    this.portCells = last(this.cells, portViewNumberOfRows)
   }
 
   /**

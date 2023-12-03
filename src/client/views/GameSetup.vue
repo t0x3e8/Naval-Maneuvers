@@ -24,7 +24,7 @@ import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useRoute } from 'vue-router'
 import { useGameStore } from '../stores/gameStore.js'
 import GameSettings from './components/GameSettingsComponent.vue'
-import PortBoard from './../GameEngine/portBoard.js'
+import Board from './../GameEngine/board.js'
 
 export default {
   name: 'GameSetupView',
@@ -34,7 +34,7 @@ export default {
   setup () {
     const gameStore = useGameStore()
     const router = useRoute()
-    const board = ref(new PortBoard())
+    const board = ref(new Board())
 
     const createGame = async (payload) => {
       console.debug(`event-on: 'createGame' with payload ${JSON.stringify(payload)}`)

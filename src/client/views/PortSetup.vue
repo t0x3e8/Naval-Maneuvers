@@ -21,7 +21,7 @@
     </div>
     <div class="grid">
       <div id="port">
-        <div v-for="(columns, rowIndex) in board.cells" :key="`1${rowIndex}`" class="grid">
+        <div v-for="(columns, rowIndex) in board.portCells" :key="`1${rowIndex}`" class="grid">
           <div v-for="(cell, colIndex) in columns" :key="`2${colIndex}`">
             <cell :cell-data="cell" class="cell" />
           </div>
@@ -33,7 +33,7 @@
 
 <script>
 import { ref, onMounted } from 'vue'
-import PortBoard from './../GameEngine/portBoard.js'
+import Board from './../GameEngine/board.js'
 import Cell from './components/CellComponent.vue'
 import { usePlayerStore } from '../stores/playerStore'
 
@@ -43,19 +43,19 @@ export default {
     Cell
   },
   setup () {
-    const board = ref(new PortBoard())
+    const board = ref(new Board())
     const playerStore = usePlayerStore()
 
     onMounted(() => {
-      playerStore.loadPortSettings()
-      const pawnsRestored = playerStore.defaultPortSettings
-      board.value.initializePawns(pawnsRestored)
+      // playerStore.loadPortSettings()
+      // const pawnsRestored = playerStore.defaultPortSettings
+      // board.value.initializePawns(pawnsRestored)
     })
 
     const refreshPortSetup = () => {
       console.debug('event: \'refreshPortSetup\'')
-      board.value = new PortBoard()
-      board.value.initializePawns()
+      board.value = new Board()
+      // board.value.initializePawns()
     }
 
     const savePortSetup = () => {

@@ -191,4 +191,10 @@ describe('Board Class Functionality Tests', () => {
       expect(rotatedPawnsCount).toEqual(pawns.length)
     })
   })
+
+  describe('portCells Function Tests', () => {
+    it('should display only 6 rows when a PortBoard is created', () => {
+      expect(board.portCells.length).toBe(6)
+    })
+  })
 })
