@@ -60,7 +60,7 @@ describe('GameBoard Class Functionality Tests', () => {
 
     board.assignPawn(board.cells[1][1], pawn1)
     board.assignPawn(board.cells[5][5], pawn2)
-    const pawnsOnBoard = board.toPawnArray()
+    const pawnsOnBoard = board.preservePawns()
 
     expect(pawnsOnBoard.length).toBe(2)
 
@@ -166,10 +166,10 @@ describe('GameBoard Class Functionality Tests', () => {
   it('should allow adding Pawns from PortSetup to the Board', () => {
     const pawns = createGameResponseData.pawns
 
-    expect(board.toPawnArray().length).toBe(0)
+    expect(board.preservePawns().length).toBe(0)
 
     board.setPawns(pawns)
-    expect(board.toPawnArray().length).toBe(pawns.length)
+    expect(board.preservePawns().length).toBe(pawns.length)
   })
 
   it('should return a list of all Pawns rotated by 180 degrees when Pawns are arranged in the port', () => {

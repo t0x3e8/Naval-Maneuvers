@@ -30,7 +30,7 @@ describe('Game Class Functionality Tests', () => {
     expect(game.players.length).toBe(1)
     expect(game.players[0].playerId).toBe(player.id)
     expect(game.players[0].name).toBe(player.name)
-    expect(game.board.toPawnArray().length).toBe(pawnsData.length)
+    expect(game.board.preservePawns().length).toBe(pawnsData.length)
     expect(game.history.getRecordNumber()).toBe(2)
   })
 

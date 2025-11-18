@@ -1,6 +1,7 @@
 import settings from './settings.js'
 import Cell from './cell.js'
 import Pawn from './pawn.js'
+import { last } from 'underscore'
 
 /**
  * The Board object represents the structure of the board, including characteristics  of board eg.
@@ -13,9 +14,11 @@ class Board {
    */
   constructor () {
     this.cells = []
+    this.portCells = []
     this.boardId = null
 
     this.initializeCells()
+    this.preparePortCells()
   }
 
   /**
@@ -40,6 +43,14 @@ class Board {
       }
       this.cells.push(row)
     }
+  }
+
+  /**
+  * Displays only the port cells of the board.
+  */
+  preparePortCells () {
+    const { portViewNumberOfRows } = settings.board
+    this.portCells = last(this.cells, portViewNumberOfRows)
   }
 
   /**
@@ -79,7 +90,7 @@ class Board {
  * Function returns the array of all pawns on the board.
  * @returns {Pawn[]} An array of pawns on the board.
  */
-  toPawnArray () {
+  preservePawns () {
     return this.cells
       .flat() // Flattens 2D => 1D array
       .filter(cell => cell.pawn !== null)
@@ -87,11 +98,40 @@ class Board {
   }
 
   /**
+   * Set up pawns on the board according to their specified positions.
+   *
+   * @param {Pawn[]} pawns - An array of pawns to be placed on the board.
+   */
+  setupPawns (pawns) {
+    const self = this
+
+    pawns.forEach(pawn => {
+      const { col, row } = pawn
+
+      // a row value out of the board range
+      if (row < 0 || row >= self.cells.length) {
+        throw new Error(`Pawn ${pawn.pawnId} is out of row range`)
+      }
+      // a row value out of the board range
+      if (col < 0 || col >= self.cells[row].length) {
+        throw new Error(`Pawn ${pawn.pawnId} is out of column range`)
+      }
+
+      // the target cell is already occupied by another pawn
+      if (self.cells[row][col].pawn !== null) {
+        throw new Error(`Cell: [${row}][${col}] has pawn already assigne`)
+      }
+
+      self.cells[row][col].pawn = pawn
+    })
+  }
+
+  /**
  * Function returns the array of all board pawns misplaced (rotated) by 180 degrees.
  * @returns {Pawn[]} An array of rotated pawns on the board.
  */
   toRotatedPawnsArray () {
-    const pawns = this.toPawnArray()
+    const pawns = this.preservePawns()
     const { numberOfColumns, numberOfRows } = settings.board
     const offset = 1
 
