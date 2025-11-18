@@ -23,7 +23,7 @@ export const usePlayerStore = defineStore('playerStore', {
     // Example getter
     // TODO: to be removed
     isPlayerActive: (state) => {
-      return Object.keys(state.player).length > 0
+      return Object.keys(state.name).length > 0
     }
 
     // Define other getters here
