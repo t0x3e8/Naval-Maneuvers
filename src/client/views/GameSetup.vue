@@ -1,27 +1,27 @@
 <template>
-    <b-container fluid class="mt-0">
-      <b-row class="g-0">
-        <b-col cols="4">
+    <div class="container">
+      <div class="row">
+        <div class="col-sidebar">
           <GameSettings />
-        </b-col>
-        <b-col cols="8" class="portSetup">
-          <b-row>
-            <b-col>
+        </div>
+        <div class="col-main portSetup">
+          <div class="row">
+            <div class="col">
               <div class="bg-transparent py-1">
                 <h1 class="h1">Port setup</h1>
                 <p class="lead">Plan your port and be ready for the <strong>naval battle</strong>!</p>
                 <hr />
               </div>
-            </b-col>
-          </b-row>
-        </b-col>
-      </b-row>
-    </b-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </template>
 
 <script>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { useGameStore } from '../stores/gameStore.js'
 import GameSettings from './components/GameSettingsComponent.vue'
 import Board from './../GameEngine/board.js'
@@ -33,7 +33,7 @@ export default {
   },
   setup () {
     const gameStore = useGameStore()
-    const router = useRoute()
+    const router = useRouter()
     const board = ref(new Board())
 
     const createGame = async (payload) => {
@@ -81,7 +81,33 @@ export default {
 </script>
 
   <style scoped>
+    .container {
+      width: 100%;
+      padding: 0;
+    }
+    .row {
+      display: flex;
+      margin: 0;
+    }
+    .col-sidebar {
+      flex: 0 0 33.333%;
+      max-width: 33.333%;
+    }
+    .col-main {
+      flex: 0 0 66.667%;
+      max-width: 66.667%;
+    }
+    .col {
+      flex: 1;
+    }
     .portSetup {
       border-left: 1px solid #00000010;
+    }
+    .bg-transparent {
+      background-color: transparent;
+    }
+    .py-1 {
+      padding-top: 0.25rem;
+      padding-bottom: 0.25rem;
     }
 </style>

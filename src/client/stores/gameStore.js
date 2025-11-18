@@ -26,8 +26,7 @@ export const useGameStore = defineStore('gameStore', {
       const dataService = this.useDataService()
       const playerStore = usePlayerStore()
 
-      const gameData = await dataService.addGame(payload.gameName, payload.pawns, playerStore.player.name)
-      // ToDo const gameData = await dataService.addGame(payload.gameName, payload.pawns, state.player);
+      const gameData = await dataService.addGame(payload.gameName, payload.pawns, playerStore.name)
 
       if (gameData !== null) {
         this.openGame(gameData.id)

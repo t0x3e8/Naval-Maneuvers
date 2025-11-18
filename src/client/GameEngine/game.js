@@ -47,7 +47,7 @@ class Game {
 
     this.history.record({
       type: HistoryType.PLAYER_JOINS,
-      playerId: Player.playerId
+      playerId: player.playerId
     })
   }
 
@@ -60,13 +60,13 @@ class Game {
       throw new Error('Invalid player object provided.')
     }
 
-    const playerIndex = this.players.findIndex(p => p.getPlayerId() === player.getPlayerId())
+    const playerIndex = this.players.findIndex(p => p.playerId === player.playerId)
     if (playerIndex !== -1) {
       this.players.splice(playerIndex, 1)
 
       this.history.record({
         type: HistoryType.PLAYER_LEAVES,
-        playerId: player.getPlayerId()
+        playerId: player.playerId
       })
     }
   }
