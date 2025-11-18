@@ -1,7 +1,6 @@
 /* eslint-disable max-lines-per-function */
 /* eslint-disable max-statements */
 import axios from 'axios'
-import store from './index.js'
 
 class DataService {
   constructor () {
@@ -9,8 +8,11 @@ class DataService {
     this.okGetStatus = 200
     this.okPatchStatus = 204
     this.getAxiosInstance = () => {
+      // TODO: Implement proper authentication token handling
       const instance = axios.create({
-        headers: { Authorization: `Bearer ${store.state.player.token}` }
+        headers: {
+          // Authorization: `Bearer ${token}`
+        }
       })
 
       instance.interceptors.request.use((request) => {
